@@ -27,8 +27,7 @@ public class SecurityConfig {
 
 
         http.authorizeHttpRequests().requestMatchers("/user").permitAll().and().csrf().disable().formLogin();
-
-
+        
 
         return http.build();
 

@@ -28,9 +28,13 @@ public class AuthController {
     }
 
 
-    public ResponseEntity<String> authenticate(){
-        
+    public ResponseEntity<String> authenticate(@RequestBody String json) throws IOException{
 
+        ObjectMapper objectMapper = new ObjectMapper();
+
+        UserEntity userRequest = objectMapper.readValue(json, UserEntity.class);
+
+        return ResponseEntity.ok(authService.Authenticate(userRequest));
     }
 
 }

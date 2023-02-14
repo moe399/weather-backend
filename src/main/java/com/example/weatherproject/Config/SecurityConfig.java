@@ -16,23 +16,8 @@ public class SecurityConfig {
 
 
 
-    @Autowired
-    UserService userService;
 
 
-   //create constructor with userservice as paramateter
-
-
-
-    //get user details
-
-    //use password encoder
-
-    //use default authneticationprovider
-
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
 
 
 

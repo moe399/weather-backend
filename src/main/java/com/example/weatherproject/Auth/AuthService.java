@@ -4,6 +4,7 @@ package com.example.weatherproject.Auth;
 import com.example.weatherproject.Config.JwtService;
 import com.example.weatherproject.User.UserService;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -23,10 +24,20 @@ public class AuthService {
 
     }
 
-    public void Authenticate(){
+    public void Authenticate(String token){
 
         // authenticate
         // return jwt
+
+        jwtService.validate(token);
+
+
+        String username = userService.loadUserByUsername(jwtService.extractUsername(token)).getUsername();
+
+        
+
+
+
 
     }
 

@@ -43,7 +43,7 @@ public class JwtService {
         try{
             Jwts.parser().parseClaimsJws(token);
             try{
-                userService.loadUsername(tokenUsername);
+                userService.loadUserByUsername(tokenUsername);
             }
             catch (Exception e){
 

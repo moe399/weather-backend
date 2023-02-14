@@ -37,7 +37,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
 
         String reqUsername = jwtService.extractUsername(jwt);
-        UserDetails userDetails = userService.loadUsername(reqUsername);
+        UserDetails userDetails = userService.loadUserByUsername(reqUsername);
 
         if(jwtService.validate(jwt) == true){
 

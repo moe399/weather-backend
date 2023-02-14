@@ -48,12 +48,16 @@ public class AuthService {
                 Authentication authentication = authenticationManager.authenticate(SecurityContextHolder.getContext().getAuthentication());
 
           String JwtToken = jwtService.generateToken(authentication.getName());
-
           return JwtToken;
+
+
 
             } catch (Exception e) {
                 System.out.println(e);
+                return "unable to authenticate";
             }
+
+
 
         }
 
@@ -63,6 +67,7 @@ public class AuthService {
 
 
         }
+
 
 
 

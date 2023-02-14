@@ -8,6 +8,7 @@ import com.example.weatherproject.User.UserService;
 import lombok.RequiredArgsConstructor;
 
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -27,7 +28,6 @@ public class AuthService {
 
     public String Register(UserEntity userEntity){
 
-
         userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
         userRepository.save(userEntity);
 
@@ -37,18 +37,22 @@ public class AuthService {
 
     public String Authenticate(UserEntity userRequest) {
 
+
         // authenticate
         // return jwt
 
-        if (!userService.loadUserByUsername(userRequest.getUsername()).getUsername().isEmpty()) {
-
 
             try {
+                System.out.println("reachecd this controller");
 
-                Authentication authentication = authenticationManager.authenticate(SecurityContextHolder.getContext().getAuthentication());
 
-          String JwtToken = jwtService.generateToken(authentication.getName());
-          return JwtToken;
+
+                userRequest.setRole(userService.loadUserByUsername(userRequest.getUsername()).getRole());
+                Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userRequest.getUsername(), userRequest.getPassword(), userRequest.getAuthorities()));
+
+                SecurityContextHolder.getContext().setAuthentication(authentication);
+
+                System.out.println(userRequest.getAuthorities());
 
 
 
@@ -57,16 +61,16 @@ public class AuthService {
                 return "unable to authenticate";
             }
 
+        String user = userService.loadUserByUsername(userRequest.getUsername()).getUsername();
 
 
-        }
+        System.out.println("Authorities are:"+ SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+
+        String JwtToken = jwtService.generateToken(user);
+        return JwtToken;
 
 
-        else{
-            return "Couldn't authenticate";
 
-
-        }
 
 
 

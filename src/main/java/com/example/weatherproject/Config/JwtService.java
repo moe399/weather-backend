@@ -6,11 +6,14 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
+@Service
 public class JwtService {
 
     private final UserService userService;
+
 
 
     public String extractUsername(String token){
@@ -21,7 +24,7 @@ public class JwtService {
                 .getBody();
 
 
-        return claims.toString();
+        return claims.getSubject().toString();
     }
 
 
@@ -38,23 +41,28 @@ public class JwtService {
 
     public boolean validate(String token){
 
-        String tokenUsername = extractUsername(token);
+        final String reqUsername = Jwts.parser()
+                .setSigningKey(System.getenv("SECRET_KEY"))
+                .parseClaimsJws(token)
+                .getBody()
+                .getSubject();
+
         // check token is valid
+        System.out.println("reached validate token begin");
+
         try{
-            Jwts.parser().parseClaimsJws(token);
-            try{
-                userService.loadUserByUsername(tokenUsername);
-            }
-            catch (Exception e){
+            Jwts.parser().setSigningKey(System.getenv("SECRET_KEY")).parseClaimsJws(token);
 
-                System.out.println("Username not found in validation method in JWT service");
+            userService.loadUserByUsername(reqUsername);
 
-            }
+            System.out.println("jwt is valid");
+
             return true;
 
         }
 
         catch (Exception e){
+            System.out.println();
             return false;
         }
 

@@ -1,4 +1,4 @@
-package com.example.weatherproject.user;
+package com.example.weatherproject.User;
 
 
 import org.springframework.web.bind.annotation.GetMapping;

@@ -2,13 +2,11 @@ package com.example.weatherproject.User;
 
 
 import com.example.weatherproject.Role;
+import com.example.weatherproject.UserLocations.UserLocation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,8 +30,22 @@ public class UserEntity implements UserDetails {
    private Long id;
    private String username;
    private String password;
-
    private Role role;
+
+
+
+//   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonProperty("userLocations")
+   private ArrayList<String> userLocations; //TODO FIX THIS
+
+
+
+
+
+
+
+
+
 
     public Long getId() {
         return id;

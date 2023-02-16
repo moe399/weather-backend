@@ -2,6 +2,7 @@ package com.example.weatherproject.Config;
 
 import com.example.weatherproject.User.UserRepository;
 import com.example.weatherproject.User.UserService;
+import com.example.weatherproject.UserLocations.UserLocation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ public class ApplicationConfig {
 
 
     private final UserService userService;
+//    private final UserLocation userLocation;
 
 
 

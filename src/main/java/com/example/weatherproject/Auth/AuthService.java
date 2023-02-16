@@ -15,6 +15,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -29,6 +31,7 @@ public class AuthService {
     public String Register(UserEntity userEntity){
 
         userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
+
         userRepository.save(userEntity);
 
         return "User saved";

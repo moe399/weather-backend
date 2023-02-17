@@ -21,11 +21,13 @@ public class UserLocationSerivce {
 
     // SAVE
 
-    public ResponseEntity<String> saveLocation(String username, String cityName{
+    public ResponseEntity<String> saveLocation(UserLocation userLocation){
 
-        UserLocation userLocation = new UserLocation();
-        userLocation.setCityName(cityName);
-        userLocation.setUserEntity(userRepository.findByUsername(username).orElseThrow());
+        userLocation.setUserEntity(userRepository.findByUsername(userLocation.getUserEntity().getUsername()).orElseThrow());
+
+
+
+
         userLocationRepository.save(userLocation);
 
         return ResponseEntity.ok(userLocation.getCityName() + "by" + userLocation.getUserEntity().getUsername());

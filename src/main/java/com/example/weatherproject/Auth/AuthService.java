@@ -30,6 +30,11 @@ public class AuthService {
 
     public String Register(UserEntity userEntity){
 
+        if(userRepository.existsByUsername(userEntity.getUsername()).orElseThrow() == true){
+            return "unable to saved, username exists";
+        }
+
+
         userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
 
 

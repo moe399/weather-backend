@@ -9,9 +9,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,7 +21,9 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
 @NoArgsConstructor
+
 
 public class UserEntity implements UserDetails {
 
@@ -36,10 +36,13 @@ public class UserEntity implements UserDetails {
    private int numberOfCities;
 
 
+    public UserEntity(String username) {
+        this.username = username;
+    }
 
-   @JsonProperty("userLocations")
-@ElementCollection
+   @JsonProperty("userlocations")
    @JsonDeserialize(using = UserLocationListDeserializer.class)
+   @OneToMany(mappedBy = "userEntity")
    private List<UserLocation> userLocations;
 
 

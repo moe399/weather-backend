@@ -32,6 +32,7 @@ public class AuthService {
 
         userEntity.setPassword(bCryptPasswordEncoder.encode(userEntity.getPassword()));
 
+
         userRepository.save(userEntity);
 
         return "User saved";

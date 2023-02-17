@@ -3,9 +3,11 @@ package com.example.weatherproject.User;
 
 import com.example.weatherproject.Role;
 import com.example.weatherproject.UserLocations.UserLocation;
+import com.example.weatherproject.UserLocations.UserLocationListDeserializer;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,13 +33,14 @@ public class UserEntity implements UserDetails {
    private String username;
    private String password;
    private Role role;
+   private int numberOfCities;
 
 
 
-//   @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    @JsonProperty("userLocations")
-   private ArrayList<String> userLocations; //TODO FIX THIS
-
+   @JsonProperty("userLocations")
+@ElementCollection
+   @JsonDeserialize(using = UserLocationListDeserializer.class)
+   private List<UserLocation> userLocations;
 
 
 

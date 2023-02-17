@@ -5,8 +5,10 @@ import com.example.weatherproject.User.UserRepository;
 import com.example.weatherproject.User.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,7 +25,9 @@ public class UserLocationSerivce {
 
     public ResponseEntity<String> saveLocation(UserLocation userLocation){
 
-        userLocation.setUserEntity(userRepository.findByUsername(userLocation.getUserEntity().getUsername()).orElseThrow());
+
+        userLocation.setUserEntity(userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow());
+
 
 
 
@@ -37,10 +41,22 @@ public class UserLocationSerivce {
 
 
     // READ
-    public ResponseEntity<String> readLocationsByUsername(String username){
+    public List<String> readLocationsByUsername(String username){
 
 
         UserEntity user = userService.loadUserByUsername(username);
+        System.out.println("Reached user list service location");
+
+        List<String> userLocationList = new ArrayList<>();
+
+        for(UserLocation userLocation : userLocationRepository.findByUserEntity(user))
+        {
+
+           userLocationList.add(userLocation.getCityName());
+
+        }
+
+       return userLocationList;
 
 
 
@@ -48,7 +64,6 @@ public class UserLocationSerivce {
 
 
 
-        return ResponseEntity.ok("a");
     }
 
 

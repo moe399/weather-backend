@@ -31,6 +31,9 @@ public class UserLocation {
 
     private UserEntity userEntity;
 
+    @Transient
+    @JsonProperty("oldcity")
+    private String oldCity;
 
 
     public UserLocation(String cityName) {

@@ -40,7 +40,7 @@ public class UserLocationSerivce {
 
 
 
-    // READ
+    // READ - Read
     public List<String> readLocationsByUsername(String username){
 
 
@@ -61,6 +61,62 @@ public class UserLocationSerivce {
 
     }
 
+
+    // UPDATE - Single Location
+
+    public ResponseEntity<String> updateUserLocations(String username, String oldCity, String newCity){
+
+        UserEntity user = userRepository.findByUsername(username).orElseThrow();
+
+
+
+        for(UserLocation userlocation: userLocationRepository.findByUserEntity(user)){
+
+            if(userlocation.getCityName().matches(oldCity)){
+                userlocation.setCityName(newCity);
+            }
+
+            userLocationRepository.save(userlocation);
+
+        }
+
+
+        return ResponseEntity.ok("saved single location");
+    }
+
+
+
+
+
+
+    // DELETE
+
+    public ResponseEntity<String> deleteUserLocation(String locationToRemove, String username){
+
+        UserEntity user = userRepository.findByUsername(username).orElseThrow();
+
+        List<UserLocation> userLocations = user.getUserLocations();
+
+        UserLocation userLocationToRemove = new UserLocation();
+
+
+        // Find the userLocation
+        for(UserLocation userlocation: userLocationRepository.findByUserEntity(user)){
+
+            if(userlocation.getCityName().matches(locationToRemove)){
+                userLocationToRemove = userlocation;
+            }
+
+        }
+
+
+      
+        userLocationRepository.delete(userLocationToRemove);
+
+
+        return ResponseEntity.ok("Delete Location " + locationToRemove);
+
+    }
 
 
 

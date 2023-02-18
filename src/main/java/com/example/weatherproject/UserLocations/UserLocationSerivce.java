@@ -59,12 +59,9 @@ public class UserLocationSerivce {
        return userLocationList;
 
 
-
-//      return ResponseEntity.ok(userLocations.getCityName());
-
-
-
     }
+
+
 
 
 

@@ -47,12 +47,9 @@ public class UserLocationController {
 
         System.out.println("reached location controller");
 
-//        UserEntity user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow();
 
 
-        System.out.println("USERNAME " + SecurityContextHolder.getContext().getAuthentication().getName());
-
-        UserEntity user = userRepository.findByUsername("user").orElseThrow();
+        UserEntity user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow();
 
 
       return ResponseEntity.ok(userLocationSerivce.readLocationsByUsername(user.getUsername()));

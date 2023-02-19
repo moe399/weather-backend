@@ -28,7 +28,11 @@ public class UserLocationSerivce {
 
         userLocation.setUserEntity(userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow());
 
+        UserEntity user = userRepository.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName()).orElseThrow();
 
+        user.setNumberOfCities(user.getNumberOfCities() + 1);
+
+        userRepository.save(user);
 
 
 
@@ -100,6 +104,11 @@ public class UserLocationSerivce {
         UserLocation userLocationToRemove = new UserLocation();
 
 
+        user.setNumberOfCities(user.getNumberOfCities() - 1);
+
+        userRepository.save(user);
+
+
         // Find the userLocation
         for(UserLocation userlocation: userLocationRepository.findByUserEntity(user)){
 
@@ -110,7 +119,7 @@ public class UserLocationSerivce {
         }
 
 
-      
+
         userLocationRepository.delete(userLocationToRemove);
 
 

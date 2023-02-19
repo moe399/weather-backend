@@ -40,6 +40,7 @@ public class UserEntity implements UserDetails {
         this.username = username;
     }
 
+    @JsonIgnore
    @JsonProperty("userlocations")
    @JsonDeserialize(using = UserLocationListDeserializer.class)
    @OneToMany(mappedBy = "userEntity")

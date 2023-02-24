@@ -63,20 +63,21 @@ public class AuthService {
 
                 System.out.println(userRequest.getAuthorities());
 
+                String user = userService.loadUserByUsername(userRequest.getUsername()).getUsername();
 
+
+                System.out.println("Authorities are:"+ SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+
+                String JwtToken = jwtService.generateToken(user);
+
+                return JwtToken;
 
             } catch (Exception e) {
                 System.out.println(e);
                 return "unable to authenticate";
             }
 
-        String user = userService.loadUserByUsername(userRequest.getUsername()).getUsername();
 
-
-        System.out.println("Authorities are:"+ SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-
-        String JwtToken = jwtService.generateToken(user);
-        return JwtToken;
 
 
 

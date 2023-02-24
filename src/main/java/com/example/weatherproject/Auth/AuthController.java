@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import  org.springframework.http.HttpStatus;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,10 @@ public class AuthController {
 
 //        System.out.println(userRequest.getRole());
 
+        if(authService.Authenticate(userRequest).matches("unable to authenticate")){
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("unable to authenticate");
+        }
 
 
         return ResponseEntity.ok(authService.Authenticate(userRequest));

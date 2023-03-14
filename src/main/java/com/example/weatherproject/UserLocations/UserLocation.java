@@ -21,8 +21,8 @@ public class UserLocation {
     private Long id;
     @JsonProperty("cityname")
     private String cityName;
-    private String Longitude;
-    private String latitude;
+    private Double Longitude;
+    private Double latitude;
 
 
     @JsonProperty("username")

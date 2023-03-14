@@ -44,6 +44,10 @@ private final JwtFilter jwtFilter;
                 .and().addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .csrf().disable().authenticationProvider(authenticationProvider).formLogin().disable();
 
+
+        http.cors();
+
+
         http.anonymous().disable();
 
 //        http.authorizeHttpRequests().requestMatchers("/hello").hasAuthority("ADMIN");

@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,5 +56,20 @@ public class AuthController {
 
         return ResponseEntity.ok(authService.Authenticate(userRequest));
     }
+
+
+
+    @PreAuthorize("hasAuthority('USER')")
+    @GetMapping("/api/v1/auth/verify")
+    public ResponseEntity<String> verify() throws IOException{
+
+
+        return ResponseEntity.ok("Looks like this JWT is valid");
+
+
+
+
+    }
+
 
 }

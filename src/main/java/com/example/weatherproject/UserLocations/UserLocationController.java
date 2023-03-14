@@ -43,7 +43,7 @@ public class UserLocationController {
 
     @PreAuthorize("hasAuthority('USER')")
     @GetMapping("/api/v1/userlocation/read")
-    public ResponseEntity<List <String>> readUserLocationByUsername(){
+    public ResponseEntity<List <UserLocationDTO>> readUserLocationByUsername(){
 
         System.out.println("reached location controller");
 

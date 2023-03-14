@@ -111,7 +111,8 @@ public class UserLocationSerivce {
             UserLocationDTO userLocationDto = new UserLocationDTO(
                     userLocation.getCityName(),
                     userLocation.getLatitude(),
-                    userLocation.getLongitude()
+                    userLocation.getLongitude(),
+                    userLocation.getCountryCode()
             );
             userLocationList.add(userLocationDto);
         }

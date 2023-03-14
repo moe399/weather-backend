@@ -35,6 +35,9 @@ public class UserLocation {
     @JsonProperty("oldcity")
     private String oldCity;
 
+    @JsonProperty("country")
+    private String countryCode;
+
 
     public UserLocation(String cityName) {
         this.cityName = cityName;

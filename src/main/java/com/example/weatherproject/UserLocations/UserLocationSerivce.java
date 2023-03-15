@@ -53,6 +53,8 @@ public class UserLocationSerivce {
 
 
 
+
+
         System.out.println(locationLatLong.getLat());
         System.out.println(locationLatLong.getCountry());
 
@@ -73,6 +75,7 @@ public class UserLocationSerivce {
         userLocationRepository.save(userLocation);
 
         return ResponseEntity.ok(userLocation.getCityName() + "by" + userLocation.getUserEntity().getUsername());
+
 
     }
 
